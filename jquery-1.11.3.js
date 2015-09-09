@@ -235,7 +235,7 @@ jQuery.extend = jQuery.fn.extend = function() {
 	// Return the modified object
 	return target;
 };
-
+	//开始扩展部分挂载在jQuery命名空间上的方法 
 jQuery.extend({
 	// Unique for each copy of jQuery on the page
 	expando: "jQuery" + ( version + Math.random() ).replace( /\D/g, "" ),
@@ -279,6 +279,9 @@ jQuery.extend({
 			return false;
 		}
 		return true;
+
+		//另一种实现方法  return obj&&Object.keys(obj).length>0?false:true;
+
 	},
 
 	isPlainObject: function( obj ) {
@@ -318,7 +321,7 @@ jQuery.extend({
 		return key === undefined || hasOwn.call( obj, key );
 	},
 
-	type: function( obj ) {
+	type: function( obj ) {//这里的type方法很精妙
 		if ( obj == null ) {
 			return obj + "";
 		}
@@ -599,6 +602,9 @@ var Sizzle =
  *
  * Date: 2014-12-16
  */
+
+
+	 //此处至2658行为Sizzle选择器部分
 (function( window ) {
 
 var i,
@@ -2712,6 +2718,7 @@ jQuery.filter = function( expr, elems, not ) {
 		}));
 };
 
+	//此处开始扩展jQuery的选择器 dom过滤器部分
 jQuery.fn.extend({
 	find: function( selector ) {
 		var i,
@@ -3112,6 +3119,7 @@ function createOptions( options ) {
  *	stopOnFalse:	interrupt callings when a callback returns false
  *
  */
+	 //定义callback模块
 jQuery.Callbacks = function( options ) {
 
 	// Convert options from String-formatted to Object-formatted if needed
@@ -3276,7 +3284,7 @@ jQuery.Callbacks = function( options ) {
 	return self;
 };
 
-
+	//定义defered模块
 jQuery.extend({
 
 	Deferred: function( func ) {
