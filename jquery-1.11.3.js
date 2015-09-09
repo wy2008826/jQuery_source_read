@@ -66,15 +66,13 @@ var support = {};
 var
 	version = "1.11.3",
 
-	// Define a local copy of jQuery
+	// 定义jQuery构造函数
 	jQuery = function( selector, context ) {
-		// The jQuery object is actually just the init constructor 'enhanced'
-		// Need init if jQuery is called (just allow error to be thrown if not included)
 		return new jQuery.fn.init( selector, context );
 	},
 
-	// Support: Android<4.1, IE<9
-	// Make sure we trim BOM and NBSP
+
+	// Make sure we trim BOM and NBSP  支持空格和&nbsp空格
 	rtrim = /^[\s\uFEFF\xA0]+|[\s\uFEFF\xA0]+$/g,
 
 	// Matches dashed string for camelizing
@@ -85,7 +83,7 @@ var
 	fcamelCase = function( all, letter ) {
 		return letter.toUpperCase();
 	};
-
+//定义jquery的原型  同时将原型绑定在prototype上
 jQuery.fn = jQuery.prototype = {
 	// The current version of jQuery being used
 	jquery: version,
