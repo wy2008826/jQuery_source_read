@@ -83,7 +83,7 @@ var
 	fcamelCase = function( all, letter ) {
 		return letter.toUpperCase();
 	};
-//定义jquery的原型  同时将原型绑定在prototype上
+	//开始定义jquery的原型  同时将原型绑定在prototype上  这里主要定义一些关于dom位置和循环的部分方法
 jQuery.fn = jQuery.prototype = {
 	// The current version of jQuery being used
 	jquery: version,
@@ -168,7 +168,9 @@ jQuery.fn = jQuery.prototype = {
 	sort: deletedIds.sort,
 	splice: deletedIds.splice
 };
+	
 
+	//开始定义挂在jQuery命名空间和jQuery原型上的扩展方法  方便后续的扩展
 jQuery.extend = jQuery.fn.extend = function() {
 	var src, copyIsArray, copy, name, options, clone,
 		target = arguments[0] || {},
