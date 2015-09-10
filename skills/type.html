@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>对象的type类型</title>
+</head>
+<body>
+	<p>typeof 1   和   typeof new Number(1)</p>
+	<script>
+		var o={};
+		var type=function(obj){
+			return obj && typeof obj=="object"?o[o.toString.call(obj)]:typeof obj;
+		}
+
+		var oColect=["String","Number","Boolean","Array","Object","Function","Error","RegExp","Date"];
+		oColect.forEach(function(item,i){
+
+			o[ "[object "+item+"]"]=item.toLowerCase();
+		});
+		console.log(type([]));
+
+	</script>
+</body>
+</html>
