@@ -3640,7 +3640,7 @@ jQuery(function() {
 		}
 	}
 
-	// Null elements to avoid leaks in IE.
+	// 元素清空防止内存泄露
 	div = null;
 })();
 
