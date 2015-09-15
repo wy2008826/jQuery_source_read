@@ -3081,14 +3081,14 @@ jQuery.each({
 		return this.pushStack( ret );
 	};
 });
-var rnotwhite = (/\S+/g);
-
+var rnotwhite = (/\S+/g);//单词 以空格键为单元
 
 
 // String to Object options format cache
 var optionsCache = {};
 
-// Convert String-formatted options into Object-formatted ones and store in cache
+
+//生成配置项  options="a  bcd e" 则返回 {a:true,bcd:true,e:true}
 function createOptions( options ) {
 	var object = optionsCache[ options ] = {};
 	jQuery.each( options.match( rnotwhite ) || [], function( _, flag ) {
