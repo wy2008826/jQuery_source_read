@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>callBacks</title>
+	<script src="../jquery-1.11.3.js"></script>
+</head>
+<body>
+	<script>
+		$(function(){
+			var callBacks=$.Callbacks("unique ");
+			function a(){
+				console.log("a");
+			}
+
+			function b(){
+				console.log("b");
+			}
+			callBacks.add(a,b);
+			callBacks.add(a,b);
+			callBacks.fire();
+			console.log(callBacks);
+		});
+
+
+
+		//闭包测试
+		function Callbacks(){
+			var list=[];
+			var index=0;
+			return  {
+				add:function(){
+					$.each(arguments,function(item,inde){
+						list.push(inde);
+						index+=1;
+					});
+					
+				},
+				show:function(){
+					var str=JSON.stringify(list);
+					console.log(str);
+					console.log(index);
+				}
+			}
+		}
+
+		var callBack=Callbacks();
+		callBack.add(213,3);
+		callBack.add(213,3);
+		callBack.show();
+	</script>
+</body>
+</html>

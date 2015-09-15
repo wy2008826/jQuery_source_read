@@ -3087,8 +3087,7 @@ var rnotwhite = (/\S+/g);//单词 以空格键为单元
 // String to Object options format cache
 var optionsCache = {};
 
-
-//生成配置项  options="a  bcd e" 则返回 {a:true,bcd:true,e:true}
+//生成配置项  如options="a  bcd e" 则返回 {a:true,bcd:true,e:true}  同时把配置项进行缓存
 function createOptions( options ) {
 	var object = optionsCache[ options ] = {};
 	jQuery.each( options.match( rnotwhite ) || [], function( _, flag ) {
@@ -3106,7 +3105,7 @@ function createOptions( options ) {
  * By default a callback list will act like an event callback list and can be
  * "fired" multiple times.
  *
- * Possible options:
+ * 可能的配置项:
  *
  *	once:			will ensure the callback list can only be fired once (like a Deferred)
  *
@@ -3115,33 +3114,30 @@ function createOptions( options ) {
  *					values (like a Deferred)
  *
  *	unique:			will ensure a callback can only be added once (no duplicate in the list)
- *
+ 
  *	stopOnFalse:	interrupt callings when a callback returns false
  *
  */
-	 //定义callback模块
+
+	//定义callback模块  参数options="once memory" 或者{once:true,memory:true}的格式
+	//参数的配置规则按照场景的需要进行选择 如果配置项都是布尔值  可以传递字符串的形式
+	//这里充分运用得到了闭包的知识 配置项通过返回对象是可以直接调用的
 jQuery.Callbacks = function( options ) {
 
-	// Convert options from String-formatted to Object-formatted if needed
-	// (we check in cache first)
+	// 把传递的字符串配置项转换成对象的形式 当然也可以直接按照对象的方式进行传递
+	// 首先检测是否有缓存的配置项
 	options = typeof options === "string" ?
 		( optionsCache[ options ] || createOptions( options ) ) :
 		jQuery.extend( {}, options );
 
-	var // Flag to know if list is currently firing
-		firing,
-		// Last fire value (for non-forgettable lists)
-		memory,
-		// Flag to know if list was already fired
-		fired,
-		// End of the loop when firing
-		firingLength,
-		// Index of currently firing callback (modified by remove if needed)
-		firingIndex,
-		// First callback to fire (used internally by add and fireWith)
-		firingStart,
-		// Actual callback list
-		list = [],
+	var firing,// 是否正在触发回调
+		memory,// Last fire value (for non-forgettable lists)
+		fired,// 是否已经回调结束
+		firingLength,// End of the loop when firing
+		firingIndex,// Index of currently firing callback (modified by remove if needed)
+		firingStart,// First callback to fire (used internally by add and fireWith)
+		list = [],// Actual callback list
+
 		// Stack of fire calls for repeatable lists
 		stack = !options.once && [],
 		// Fire callbacks
@@ -3204,7 +3200,7 @@ jQuery.Callbacks = function( options ) {
 				}
 				return this;
 			},
-			// Remove a callback from the list
+			// 从列表中移除一个回调函数 
 			remove: function() {
 				if ( list ) {
 					jQuery.each( arguments, function( _, arg ) {
@@ -3225,12 +3221,12 @@ jQuery.Callbacks = function( options ) {
 				}
 				return this;
 			},
-			// Check if a given callback is in the list.
-			// If no argument is given, return whether or not list has callbacks attached.
+			// 检测回调列表中是否包含了回调函数 
+			// 如果参数为空 则返回回调列表是否为空
 			has: function( fn ) {
 				return fn ? jQuery.inArray( fn, list ) > -1 : !!( list && list.length );
 			},
-			// Remove all callbacks from the list
+			// 从回调列表中移除所有回调
 			empty: function() {
 				list = [];
 				firingLength = 0;
@@ -3253,7 +3249,7 @@ jQuery.Callbacks = function( options ) {
 				}
 				return this;
 			},
-			// Is it locked?
+			// 列表是否被锁定  
 			locked: function() {
 				return !stack;
 			},
@@ -3275,7 +3271,7 @@ jQuery.Callbacks = function( options ) {
 				self.fireWith( this, arguments );
 				return this;
 			},
-			// To know if the callbacks have already been called at least once
+			// 回调函数是否已经被调用 
 			fired: function() {
 				return !!fired;
 			}
