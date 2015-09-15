@@ -7,17 +7,43 @@
 <body>
 	
 	<script>
-		var o={};
+		//判断数据类型
 		var type=function(obj){
+			var o={};
+			var oColect=["String","Number","Boolean","Array","Object","Function","Error","RegExp","Date"];
+			oColect.forEach(function(item,i){
+				o[ "[object "+item+"]"]=item.toLowerCase();
+			});
 			return obj && typeof obj=="object"?o[o.toString.call(obj)]:typeof obj;
 		}
 
-		var oColect=["String","Number","Boolean","Array","Object","Function","Error","RegExp","Date"];
-		oColect.forEach(function(item,i){
-
-			o[ "[object "+item+"]"]=item.toLowerCase();
-		});
 		console.log(type([]));
+
+
+		//判断数据是否为类数据格式 如"214" 或214
+		var isNumberic=function(obj){
+			return obj&&(typeof obj=="string"||typeof obj=="number")?obj-parseFloat(obj)==0:false;
+		}
+
+
+		//三目运算符 和或运算符的使用  相当于if else的精简组合
+		a?b||c||!d:e;//和下面的逻辑对等
+		if(a){
+			if(b){
+				return b;
+			}
+			else{
+				if(c){
+					return c;
+				}
+				else{
+					return !d;
+				}
+			}
+		}
+		else{
+			return e;
+		}
 
 	</script>
 </body>
