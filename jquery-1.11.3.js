@@ -3587,8 +3587,9 @@ support.ownLast = i !== "0";
 support.inlineBlockNeedsLayout = false;
 
 // Execute ASAP in case we need to set body.style.zoom
+	//检测inline元素是否是按照inline-block来做处理  兼容性的处理
 jQuery(function() {
-	// Minified: var a,b,c,d
+	
 	var val, div, body, container;
 
 	body = document.getElementsByTagName( "body" )[ 0 ];
